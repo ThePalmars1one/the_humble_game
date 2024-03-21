@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://bahl6mgpih78k"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_5olnb"]
+[ext_resource type="Script" path="res://Pivote.gd" id="1_bkbnt"]
+[ext_resource type="ArrayMesh" uid="uid://t823f6afhsjj" path="res://guns/machinegun.obj" id="1_pwj1m"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1wfnv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dqom3"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.012707, 0.0123775, 0.00435972)
+script = ExtResource("1_5olnb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44127, 0)
+mesh = SubResource("CapsuleMesh_1wfnv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4115, 0)
+shape = SubResource("CapsuleShape3D_dqom3")
+
+[node name="Orbit" type="Node3D" parent="."]
+transform = Transform3D(0.998142, 0, -0.0609266, 0, 1, 0, 0.0609266, 0, 0.998142, 2.19408, 2.01432, 1.44939)
+script = ExtResource("1_bkbnt")
+
+[node name="Camera3D" type="Camera3D" parent="Orbit"]
+transform = Transform3D(-1.78814e-07, 0, 5, 0, 5, 0, -5, 0, -1.78814e-07, -0.0847139, 0.75703, -1.33726)
+current = true
+fov = 90.7128
+
+[node name="Weapon" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.276509, 1.34992, -0.909114)
+
+[node name="Machinegun" type="MeshInstance3D" parent="Weapon"]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 0.202811, 0.139285, 0.310251)
+mesh = ExtResource("1_pwj1m")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="Weapon/Machinegun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000126433, 0.00602612, 0.0483827)
+
+[node name="AttackRayCast" type="RayCast3D" parent="."]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -0.100349, 1.33563, 0)
+target_position = Vector3(0, 0, 1.5)
